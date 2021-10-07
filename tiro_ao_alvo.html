@@ -1,0 +1,112 @@
+<meta charset="UTF-8">
+<div align="center">
+<canvas width="600" height="400"></canvas>
+
+
+<script>
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+   
+    pincel.fillStyle = 'white';
+    pincel.fillRect(0, 0, 600, 400); 
+    var raio = 10;
+    var xAleatorio = sorteiaPosicao;
+    var yAleatorio = sorteiaPosicao;
+ 
+    function desenhaAlvo(x, y, cor, raio){
+        //Usa-se essa função para desenhar um círculo em tamanho padrão, com o raio = 10.
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2 * 3.14);
+        pincel.fill();
+    }
+
+    function alvoGrande(x, y){
+        //Aqui foi criada uma função para construir o conjunto de círculos que formará o alvo.
+        desenhaAlvo (x, y, 'red', raio + 30);
+        desenhaAlvo (x, y, 'white', raio + 15);
+        desenhaAlvo (x, y, 'red', raio);
+    }
+
+    function atirar(evento){
+        /*
+        Esta função foi criada para criar um pequeno círculo, ilustrando onde a "bala" foi atirada, e para alertar ao usuário sempre que for atingido o centro do alvo.
+        */
+        var x = evento.pageX - tela.offsetLeft;
+        var y = evento.pageY - tela.offsetTop;
+   
+        pincel.fillStyle = 'black';
+        pincel.beginPath();
+        pincel.arc(x, y, 5, 0, 2 * 3.14);
+        pincel.fill();
+
+         if((x > xAleatorio - raio)
+            && (x < xAleatorio + raio)
+            && (y > yAleatorio - raio)
+            && (y < yAleatorio + raio)){
+            alert ("Parabéns, você acertou o centro do alvo!")
+         }
+    }
+
+    function sorteiaPosicao(maximo){return Math.floor(Math.random() * maximo)} 
+    //Esta função será usada para sortear o Y e o X máximos do alvo.
+
+    function limpaTela(){pincel.clearRect(0, 0, 600, 400);}
+    //Esta função existe para limpar a tela e apagar o alvo anterior.
+
+    function atualizaTela(){
+        //Esta função servirá para operacionalizar as funções acima destacadas.
+        limpaTela();
+        xAleatorio = sorteiaPosicao(600);
+        yAleatorio = sorteiaPosicao(400);
+        alvoGrande(xAleatorio, yAleatorio);
+        }
+    
+    tela.onclick=atirar;
+    //Sempre que clicar na tela a função atirar será ativada.
+    setInterval(atualizaTela, 1000); 
+    /*Aqui usa-se o comando setInterval para definir o intervalo de tempo no qual a função atualizar tela será chamada.*/ 
+
+            
+        
+        
+
+
+
+
+        
+            
+        
+
+     
+     
+
+     
+
+    
+  
+    
+
+    
+    
+
+
+    
+    
+    
+
+
+    
+
+    
+
+    
+
+
+
+
+
+
+    
+</script>
+</div>
